@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hive CheckBlock
 
-## Getting Started
+Bienvenido a **Hive CheckBlock**, una aplicación Next.js moderna y didáctica para consultar información y el historial de operaciones de cuentas en la blockchain de Hive.
 
-First, run the development server:
+## 🚀 Características principales
+- Consulta visual y detallada del historial de operaciones de cualquier cuenta Hive.
+- Consulta de información básica de cuentas Hive.
+- UI atractiva, responsiva y amigable para nuevos usuarios y desarrolladores.
+- Arquitectura limpia y escalable, fácil de extender.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📂 Estructura del proyecto
+```
+next-checkblock/
+├── src/
+│   ├── app/
+│   │   ├── components/         # Componentes de UI reutilizables
+│   │   ├── api/                # Endpoints API (Next.js Route Handlers)
+│   │   ├── page.tsx            # Página principal (Home)
+│   │   └── ...
+│   ├── services/               # Lógica de acceso a Hive
+│   ├── types/                  # Tipos TypeScript (opcional)
+│   └── utils/                  # Utilidades compartidas
+├── public/                     # Imágenes y recursos estáticos
+├── package.json
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Instalación y ejecución
+1. **Clona el repositorio:**
+   ```bash
+   git clone https://github.com/tuusuario/next-checkblock.git
+   cd next-checkblock
+   ```
+2. **Instala las dependencias:**
+   ```bash
+   npm install
+   # o
+   yarn install
+   ```
+3. **Inicia el servidor de desarrollo:**
+   ```bash
+   npm run dev
+   # o
+   yarn dev
+   ```
+4. **Abre la app en tu navegador:**
+   [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🧑‍💻 ¿Cómo funciona?
+- Ingresa el nombre de usuario Hive en el formulario.
+- Selecciona el servicio que deseas (historial o datos de cuenta).
+- Visualiza los resultados de forma clara y didáctica.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Personalización
+- Cambia la imagen de fondo editando la clase `bg-[url('/globe.svg')]` en `src/app/page.tsx`.
+- Agrega nuevos servicios creando componentes y endpoints siguiendo la arquitectura actual.
 
-## Learn More
+## 🤝 Contribuir
+1. Haz un fork del repositorio.
+2. Crea una rama para tu feature/fix: `git checkout -b mi-feature`.
+3. Realiza tus cambios y haz commit: `git commit -am 'Agrega mi feature'`.
+4. Haz push a tu fork: `git push origin mi-feature`.
+5. Abre un Pull Request.
 
-To learn more about Next.js, take a look at the following resources:
+## 📝 Licencia
+MIT
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+¿Dudas o sugerencias? ¡Abre un issue o contacta a los mantenedores!
