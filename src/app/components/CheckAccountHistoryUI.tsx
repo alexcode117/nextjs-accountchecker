@@ -1,14 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import type { HiveOperation, HiveError } from "@/types/hive";
+
+type OperationItem = HiveOperation | HiveError;
 
 function formatDate(dateStr: string) {
   const d = new Date(dateStr);
   return d.toLocaleString();
 }
 
-function OperationCard({ item }: { item: any }) {
-  if (item.error) {
+function OperationCard({ item }: { item: OperationItem }) {
+  if ('error' in item) {
     return <div className="bg-red-100 text-red-700 rounded p-3">{item.error}</div>;
   }
   const [type, data] = item.op;
@@ -53,10 +56,10 @@ function OperationCard({ item }: { item: any }) {
 export default function CheckAccountHistoryUI() {
 
   const [account, setAccount] = useState("");
-  const [result, setResult] = useState<any[]>([]);
+  const [result, setResult] = useState<OperationItem[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setResult([]);

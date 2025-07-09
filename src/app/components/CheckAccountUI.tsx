@@ -1,14 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import type { HiveAccount, HiveError } from "@/types/hive";
+
+type ResultType = HiveAccount | HiveError | null;
 
 export default function CheckAccountUI() {
 
   const [account, setAccount] = useState("");
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<ResultType>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setResult(null);
