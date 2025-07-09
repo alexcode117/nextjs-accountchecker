@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { HiveOperation, HiveError } from "@/types/hive";
+import { isTransferOp, isVoteOp, isCommentOp } from "@/types/hive";
 
 type OperationItem = HiveOperation | HiveError;
 
@@ -23,7 +24,7 @@ function OperationCard({ item }: { item: OperationItem }) {
         <span className="text-xs text-zinc-400 ml-auto">{formatDate(item.timestamp)}</span>
       </div>
       <div className="text-sm">
-        {type === "transfer" && (
+        {type === "transfer" && isTransferOp(data) && (
           <>
             <div><span className="font-semibold">De:</span> {data.from}</div>
             <div><span className="font-semibold">Para:</span> {data.to}</div>
@@ -31,7 +32,7 @@ function OperationCard({ item }: { item: OperationItem }) {
             {data.memo && <div><span className="font-semibold">Memo:</span> {data.memo}</div>}
           </>
         )}
-        {type === "vote" && (
+        {type === "vote" && isVoteOp(data) && (
           <>
             <div><span className="font-semibold">Votante:</span> {data.voter}</div>
             <div><span className="font-semibold">Autor:</span> {data.author}</div>
@@ -39,13 +40,13 @@ function OperationCard({ item }: { item: OperationItem }) {
             <div><span className="font-semibold">Peso:</span> {data.weight / 100}%</div>
           </>
         )}
-        {type === "comment" && (
+        {type === "comment" && isCommentOp(data) && (
           <>
             <div><span className="font-semibold">Título:</span> {data.title || "--sin título--"}</div>
             <div><span className="font-semibold">En respuesta a:</span> {data.parent_author}/{data.parent_permlink}</div>
           </>
         )}
-        {type !== "transfer" && type !== "vote" && type !== "comment" && (
+        {((type !== "transfer" && type !== "vote" && type !== "comment") || (!isTransferOp(data) && !isVoteOp(data) && !isCommentOp(data))) && (
           <pre className="text-xs bg-zinc-100 dark:bg-zinc-900 rounded p-2 mt-2 overflow-x-auto w-full" style={{ minWidth: 0 }}>{JSON.stringify(data, null, 2)}</pre>
         )}
       </div>
