@@ -1,16 +1,16 @@
 // Tipos para Hive CheckBlock
 
-export interface HiveAccount {
+export type HiveAccount = {
   id: number;
   name: string;
-  [key: string]: any; // Para permitir campos adicionales
-}
+  [key: string]: unknown;
+};
 
 export interface HiveOperation {
   id: number;
   block: number;
   timestamp: string;
-  op: [string, any];
+  op: [string, unknown];
 }
 
 export interface HiveError {

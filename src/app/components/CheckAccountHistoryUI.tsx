@@ -67,7 +67,7 @@ export default function CheckAccountHistoryUI() {
       const res = await fetch(`/api/check-account-history?account=${account}`);
       const data = await res.json();
       setResult(data.history || []);
-    } catch (err) {
+    } catch {
       setResult([{ error: "Error al consultar el historial." }]);
     }
     setLoading(false);

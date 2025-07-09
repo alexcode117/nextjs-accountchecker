@@ -19,7 +19,7 @@ export default function CheckAccountUI() {
       const res = await fetch(`/api/check-account?account=${account}`);
       const data = await res.json();
       setResult(data.account || data);
-    } catch (err) {
+    } catch {
       setResult({ error: "Error al consultar la cuenta." });
     }
     setLoading(false);

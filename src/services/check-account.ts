@@ -1,11 +1,14 @@
 import { client } from "@/utils/clientHive";
+import type { HiveAccount, HiveError } from "@/types/hive";
 
-const checkAccount = async (account: string) => {
+type Result = HiveAccount | HiveError | null;
+
+const checkAccount = async (account: string): Promise<Result> => {
     try {
         const accounts = await client.database.getAccounts([account]);
         return accounts[0] || null;
-    } catch (error: any) {
-        return { error: error.message };
+    } catch {
+        return { error: "Error al consultar la cuenta." };
     }
 };
 
