@@ -1,11 +1,12 @@
 import { client } from "@/utils/clientHive";
-import type { HiveAccount, HiveError } from "@/types/hive";
+import type { HiveError } from "@/types/hive";
+import type { ExtendedAccount } from "@hiveio/dhive";
 
-type Result = HiveAccount | HiveError | null;
+type Result = ExtendedAccount | HiveError | null;
 
 export const checkAccount = async (account: string): Promise<Result> => {
   try {
-    const accounts: HiveAccount[] = await client.database.getAccounts([account]);
+    const accounts: ExtendedAccount[] = await client.database.getAccounts([account]);
     return accounts[0] || null;
   } catch (error) {
     console.error("Error fetching account:", error);
