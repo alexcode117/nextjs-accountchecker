@@ -6,7 +6,6 @@ import type { HiveAccount, HiveError } from "@/types/hive";
 type ResultType = HiveAccount | HiveError | null;
 
 export default function CheckAccountUI() {
-
   const [account, setAccount] = useState("");
   const [result, setResult] = useState<ResultType>(null);
   const [loading, setLoading] = useState(false);
@@ -15,14 +14,17 @@ export default function CheckAccountUI() {
     e.preventDefault();
     setLoading(true);
     setResult(null);
+    
     try {
-      const res = await fetch(`/api/check-account?account=${account}`);
+      const res = await fetch(`/api/check-account?account=${encodeURIComponent(account)}`);
       const data = await res.json();
       setResult(data.account || data);
-    } catch {
+    } catch (error) {
+      console.error("Error fetching account:", error);
       setResult({ error: "Error al consultar la cuenta." });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
   
   return (
@@ -32,20 +34,31 @@ export default function CheckAccountUI() {
           className="border border-zinc-300 dark:border-zinc-700 rounded px-4 py-3 text-lg text-zinc-800 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 placeholder-zinc-400 dark:placeholder-zinc-500 transition"
           placeholder="Ej: hiveuser123"
           value={account}
-          onChange={e => setAccount(e.target.value)}
+          onChange={(e) => setAccount(e.target.value)}
           required
           autoFocus
         />
-        <button type="submit" className="bg-blue-600 text-white rounded px-4 py-2 hover:bg-blue-700 transition">
-          Consultar
+        <button 
+          type="submit" 
+          className="bg-blue-600 text-white rounded px-4 py-2 hover:bg-blue-700 transition disabled:opacity-50"
+          disabled={loading}
+        >
+          {loading ? "Consultando..." : "Consultar"}
         </button>
       </form>
-      {loading && <div className="mt-4 text-center">Consultando...</div>}
+      
+      {loading && (
+        <div className="mt-4 text-center">Consultando...</div>
+      )}
+      
       {result && (
-        <pre className="mt-4 bg-zinc-100 dark:bg-zinc-800 rounded p-2 text-xs overflow-x-auto w-full" style={{ minWidth: 0 }}>
+        <pre 
+          className="mt-4 bg-zinc-100 dark:bg-zinc-800 rounded p-2 text-xs overflow-x-auto w-full" 
+          style={{ minWidth: 0 }}
+        >
           {JSON.stringify(result, null, 2)}
         </pre>
       )}
     </div>
   );
-} 
+}

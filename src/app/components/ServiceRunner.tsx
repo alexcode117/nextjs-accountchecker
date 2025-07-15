@@ -1,7 +1,11 @@
 import CheckAccount from "./CheckAccountUI";  
 import CheckAccountHistory from "./CheckAccountHistoryUI";
 
-export default function ServiceRunner({ serviceKey }: { serviceKey: string }) {
+interface ServiceRunnerProps {
+  serviceKey: string;
+}
+
+export default function ServiceRunner({ serviceKey }: ServiceRunnerProps) {
   switch (serviceKey) {
     case "check-account-history":
       return <CheckAccountHistory />;
@@ -10,4 +14,4 @@ export default function ServiceRunner({ serviceKey }: { serviceKey: string }) {
     default:
       return null;
   }
-} 
+}
