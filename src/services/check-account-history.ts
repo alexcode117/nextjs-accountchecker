@@ -1,13 +1,8 @@
 import { client } from "@/utils/clientHive";
 import type { HiveOperation, HiveError } from "@/types/hive";
+import type { AppliedOperation } from "@hiveio/dhive";
 
-interface RawOpData {
-  block: number;
-  timestamp: string;
-  op: [string, unknown];
-}
-
-type RawHistoryItem = [number, RawOpData];
+// getAccountHistory returns [number, AppliedOperation][]
 
 type Result = HiveOperation | HiveError;
 
@@ -16,7 +11,7 @@ export const checkAccountHistory = async (
   limit = 5
 ): Promise<Result[]> => {
   try {
-    const historial: RawHistoryItem[] = await client.database.getAccountHistory(
+    const historial: [number, AppliedOperation][] = await client.database.getAccountHistory(
       account, 
       -1,       
       limit
@@ -26,7 +21,7 @@ export const checkAccountHistory = async (
       id,
       block: opData.block,
       timestamp: opData.timestamp,
-      op: opData.op
+      op: opData.op as [string, unknown], // Cast if you're sure it's compatible
     }));
   } catch (error) {
     console.error("Error fetching account history:", error);
